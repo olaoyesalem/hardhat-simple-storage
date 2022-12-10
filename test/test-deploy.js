@@ -22,10 +22,25 @@ describe("SimpleStorage", function(){
         
         assert.equal(expectedValue.toString(),favNumber.toString()); 
     })
-    it.only("should add both favorite number and name to peoples array",async function(){
-       await SimpleStorage.addPeople(7,"Ronaldo");
-        const expectedResult = await SimpleStorage.peoples(0);
+    it("should expect name to map to favorite number",async function(){
+     await SimpleStorage.addPeople(7,"Ronaldo");
+     const txnResponse = await SimpleStorage.nametofavNum["Ronaldo"];
+     const expectedResult = await SimpleStorage.peoples[0];
         assert.equal(txnResponse,expectedResult);
+
+    })
+
+    it("should expect favorite number to map to name",async function(){
+        await SimpleStorage.addPeople(10,"Messi");
+        const txnResponse = await SimpleStorage.favNumToName[10];
+        const expectedResult = await SimpleStorage.peoples[0];
+        assert.equal(txnResponse,expectedResult);
+    })
+    it.only("should check if name and favorite number is added to struct",async function(){
+        await SimpleStorage.addPeople(10,"Messi");
+        const txnResponse = await SimpleStorage.peoples[0];
+        const expectedResult = await SimpleStorage.peoples[10,"Messi"];
+
 
     })
     
